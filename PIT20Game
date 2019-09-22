@@ -1,0 +1,955 @@
+<div class="clearfix breakout-container">
+                <div class="col-lg-4 col-sm-6 col-xs-12 col-md-4">
+                    <table class="table table-responsive table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="width:5%"></th>
+                                <th class="text-right">Away</th>
+                                <th class="text-center">=</th>
+                                <th>Home</th>
+                                <th style="width:28px"></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach:Schedule().slice(0, 10)">
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="NE">
+                                <td data-bind="text:$index() + 1" class="interactable">1</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable NE">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Patriots</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">NE</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/NE.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">2</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right SEA">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/SEA.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Seahawks</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">SEA</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">3</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable SF">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">49ers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">SF</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/SF.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CIN">
+                                <td data-bind="text:$index() + 1" class="interactable">4</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right CIN">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CIN.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Bengals</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">CIN</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Mo</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="BAL">
+                                <td data-bind="text:$index() + 1" class="interactable">5</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right BAL">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/BAL.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Ravens</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">BAL</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">6</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable LAC">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Chargers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">LAC</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/LAC.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data -->
+                                <td data-bind="text:$index() + 1">7</td>
+                                <td colspan="4" align="center">BYE WEEK</td>
+                                <!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">8</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right MIA">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/MIA.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Dolphins</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">MIA</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"><i class="fa fa-bed"></i></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Mo</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">9</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right IND">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/IND.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Colts</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">IND</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 1" class="interactable">10</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right LA">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/LA.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+1))"><i class="fa fa-bed"></i></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Rams</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">LA</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+1 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+1 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+1))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <tr class="unselected">
+                                <!-- ko if: !$data --><!-- /ko -->
+                            </tr>
+                        </tbody>
+                        <tbody class="visible-sm visible-xs no-border" data-bind="foreach:Schedule().slice(10)">
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CLE">
+                                <td data-bind="text:$index() + 11" class="interactable">11</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable CLE">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Browns</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">CLE</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CLE.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Th</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CIN">
+                                <td data-bind="text:$index() + 11" class="interactable">12</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable CIN">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Bengals</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">CIN</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CIN.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CLE">
+                                <td data-bind="text:$index() + 11" class="interactable">13</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right CLE">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CLE.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Browns</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">CLE</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">14</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable ARI">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Cardinals</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">ARI</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/ARI.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">15</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right BUF">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/BUF.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Bills</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">BUF</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="NYJ">
+                                <td data-bind="text:$index() + 11" class="interactable">16</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable NYJ">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Jets</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">NYJ</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/NYJ.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">17</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+                                        <span data-bind="text: away().TeamName" class="visible-xl visible-xs pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-md pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable BAL">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl visible-xs pull-left" style="padding:8px 4px;">Ravens</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-md visible-lg pull-left" style="padding:8px 4px;">BAL</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/BAL.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+10 < 17 --><!-- /ko -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <table class="table table-responsive table-condensed hidden-xs hidden-sm">
+                        <thead>
+                            <tr>
+                                <th style="width:5%"></th>
+                                <th class="text-right">Away</th>
+                                <th class="text-center">=</th>
+                                <th>Home</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach:Schedule().slice(10)">
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CLE">
+                                <td data-bind="text:$index() + 11" class="interactable">11</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable CLE">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Browns</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">CLE</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CLE.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Th</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CIN">
+                                <td data-bind="text:$index() + 11" class="interactable">12</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable CIN">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Bengals</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">CIN</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CIN.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="CLE">
+                                <td data-bind="text:$index() + 11" class="interactable">13</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right CLE">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CLE.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Browns</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">CLE</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">14</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable ARI">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Cardinals</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">ARI</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/ARI.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title="">Su</td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">15</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right BUF">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/BUF.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Bills</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">BUF</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="NYJ">
+                                <td data-bind="text:$index() + 11" class="interactable">16</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable NYJ">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Jets</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">NYJ</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/NYJ.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                            <tr data-bind="css:(selectionMade() ? $data.teamSelected : 'unselected') " class="unselected">
+                                <td data-bind="text:$index() + 11" class="interactable">17</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable BAL">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Ravens</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">BAL</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/BAL.svg">
+                                </div>
+                           </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data -->
+                                        <td data-bind="text:$index() + 11" class="interactable">18</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/CAR.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Panthers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">CAR</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable CAR">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                            <td data-bind="text:$index() + 11" class="interactable">19</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable MIN">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Vikings</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">MIN</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/MIN.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                            <td data-bind="text:$index() + 11" class="interactable">20</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PHI">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PHI.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Eagles</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PHI</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable PIT">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">PIT</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                            <td data-bind="text:$index() + 11" class="interactable">21</td>
+                                <td data-bind="css:away().TeamAbbreviation, click:function(){vm.selectGame($rawData, away,PlayoffPredictor.Enums.SelectionType.AWAY_WIN);}" class="interactable text-right PIT">
+                                    <div class="pull-right">
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + away().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/PIT.svg">
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(away, $index()+11))"></sup>
+
+                                        <span data-bind="text: away().TeamName" class="visible-xl pull-right" style="padding:8px 4px;">Steelers</span>
+                                        <span data-bind="text: away().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-right" style="padding:8px 4px;">PIT</span>
+                                    </div>
+                                </td>
+                                <td class="text-center interactable" data-bind="if: ($index()+11 <= 17), css:{'TIE':teamSelected() == 'TIE'}, click:function(){if($index()+11 <= 17){ vm.selectGame($rawData, 'TIE', PlayoffPredictor.Enums.SelectionType.TIE)}}">=</td>
+                                <td data-bind="css:home().TeamAbbreviation,click:function(){vm.selectGame($rawData, home,PlayoffPredictor.Enums.SelectionType.HOME_WIN);}" class="interactable SEA">
+                                    <div class="pull-left">
+                                        <span data-bind="text: home().TeamName" class="visible-xl pull-left" style="padding:8px 4px;">Seahawks</span>
+                                        <span data-bind="text: home().TeamAbbreviation" class="visible-xs visible-sm visible-md visible-lg pull-left" style="padding:8px 4px;">SEA</span>
+                                        <sup data-bind="if:(vm.wasTeamOnByeLastWeek(home, $index()+11))"></sup>
+
+                                        <img data-bind="attr:{src:'https://static.playoffpredictors.com/nfl/' + home().TeamAbbreviation+ '.svg'}" width="32" height="32" class="pull-left" src="https://static.playoffpredictors.com/nfl/SEA.svg">
+                                    </div>
+                                </td>
+                                <!-- ko if: primeTimeNum() != null && gameDate() == null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() != null && gameDate() != null--><!-- /ko -->
+                                <!-- ko if: primeTimeNum() == null -->
+                                <td data-bind="text: $data.gameDateShortDisplay(), tooltip:{title:$data.gameDateLongDisplay()}" class="hidden-print" data-original-title="" title=""></td>
+                                <!--/ko-->
+                            </tr>
+                            <!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        
+                            <!-- ko if: $data --><!-- /ko -->
+                            <!-- ko if: !$data && $index()+11 < 17 --><!-- /ko -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-4 col-sm-6 col-xs-12 col-md-4">
+                    <div class="col-xs-12 visible-sm hidden-xs visible-md visible-lg visible-xl pull-left">
+                        <div class="bootstrap-switch-on bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 81.9922px;"><div class="bootstrap-switch-container" style="width: 127.5px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 64px;">DIV</span><span class="bootstrap-switch-label" style="width: 64px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 64px;">CONF</span><input type="checkbox" class="js-divisionToggle" data-on-text="DIV" data-off-text="CONF" data-bind="checked:$parent.ShowDivision" data-state="PlayoffPredictorsApp.UserConfigManager.UserConfig.NFL.DivToggle"></div></div>
+                    </div>
+
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p><strong>WLT</strong></p>
+                                    <p data-bind="text:GameRecords.AllRecord.toString(), tooltip:{title:'(' + GameRecords.AllRecord.Pct().toFixed(3) + ')'}" data-original-title="" title="">0-7</p>
+                                </td>
+                                <td>
+                                    <p><strong>Div</strong></p>
+                                    <p data-bind="text:GameRecords.DivisionRecord.toString(), tooltip:{title:'(' + GameRecords.DivisionRecord.Pct().toFixed(3) + ')'}" data-original-title="" title="">0-5</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><strong>Conf</strong></p>
+                                    <p data-bind="text:GameRecords.ConferenceRecord.toString(), tooltip:{title:'(' + GameRecords.ConferenceRecord.Pct().toFixed(3) + ')'}" data-original-title="" title="">0-7</p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><strong>Home</strong></p>
+                                    <p data-bind="text:GameRecords.HomeRecord.toString(), tooltip:{title:'(' + GameRecords.HomeRecord.Pct().toFixed(3) + ')'}" data-original-title="" title="">0-3</p>
+                                </td>
+
+                                <td>
+                                    <p><strong>Away</strong></p>
+                                    <p data-bind="text:GameRecords.AwayRecord.toString(), tooltip:{title:'(' + GameRecords.AwayRecord.Pct().toFixed(3) + ')'}" data-original-title="" title="">0-4</p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><strong data-bind="tooltip:{title: 'Teams > 0.5'}" data-original-title="" title="">vs Winning</strong></p>
+                                    <p data-bind="text:GameRecords.WinningTeamsRecord().toString(), tooltip:{title:'(' + GameRecords.WinningTeamsRecord().Pct().toFixed(3) + ')'}" data-original-title="" title="">0-7</p>
+                                </td>
+
+                                <td>
+                                    <p><strong data-bind="tooltip:{title:'Teams <= 0.5'}" data-original-title="" title="">vs Losing</strong></p>
+                                    <p data-bind="text:GameRecords.LosingTeamsRecord().toString(), tooltip:{title:'(' + GameRecords.LosingTeamsRecord().Pct().toFixed(3) + ')'}" data-original-title="" title="">0-0</p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><strong>SOV</strong></p>
+                                    <p data-bind="text:SOV().toFixed(3)">0.000</p>
+                                </td>
+                                <td>
+                                    <p><strong>SOS</strong></p>
+                                    <p data-bind="text:SOS().toFixed(3)">1.000</p>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table data-bind="if:Tiebreakers().DivHTH.length > 0"></table>
+                    <table data-bind="if:Tiebreakers().HTH.length > 0"></table>
+                    <table class="table-condensed">
+                        <thead data-bind="if:SchedulePicker.App.mapDictionaryToArray(Tiebreakers()['CommonGames']).length >0"></thead>
+
+                        <!-- ko foreach: SchedulePicker.App.mapDictionaryToArray(Tiebreakers()['CommonGames']) --><!-- /ko -->
+                        <tbody data-bind="if: Tiebreakers()['Explanations']"></tbody>
+                        <tbody>
+                            <tr>
+                                <td colspan="3">
+                                    <p><strong>Rank determined by</strong></p>
+                                    <p data-bind="text:RankMethodText">Pct vs League</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
